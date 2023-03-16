@@ -2,7 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use Laravel\Passport\Http\Controllers\AccessTokenController;
+use Laravel\Passport\Http\Controllers\AuthorizedAccessTokenController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,7 +14,12 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('/oauth/token', [AccessTokenController::class, 'issueToken'])
+    ->middleware(['web', 'throttle'])
+    ->name('passport.token');
+
+Route::middleware('auth:api')->get('/tokens', [AuthorizedAccessTokenController::class, 'forUser']);
