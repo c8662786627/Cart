@@ -26,15 +26,14 @@ Route::group(['middleware'=>'auth:api'],function(){
     Route::post('/user', [AuthController::class, 'user']);
 });
 
-Route::group(['prefix'=>'product'],function(){
-    Route::get('/',[ProductController::class,'listPage']);
-    Route::post('/create',[ProductController::class,'productCreate']);
-    
-    Route::group(['prefix'=>'{product_id}'],function(){
-        Route::group(['middleware'=>'user.auth.admin'],function(){
+//Route::group(['middleware'=>'user.auth.admin'],function(){
+    Route::group(['prefix'=>'product'],function(){
+        Route::get('/',[ProductController::class,'listPage']);
+        Route::post('/create',[ProductController::class,'productCreate']);
+        Route::group(['prefix'=>'{product_id}'],function(){
             Route::get('/',[ProductController::class,'productPage']);
-            Route::put('/',[ProductController::class,'productUpdate']);
-            Route::post('/',[ProductController::class,'productDel']);
+            Route::post('/',[ProductController::class,'productUpdate']);
+            Route::delete('/delete',[ProductController::class,'productDel']);
         });
     });
-});
+//});

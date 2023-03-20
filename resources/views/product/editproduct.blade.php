@@ -6,7 +6,7 @@
     <div class="container">
         <h1>{{$title}}</h1>
         
-        <form method="post" enctype="multipart/form-data" action="/product/{{$product->product_id}}">
+        <form method="post" enctype="multipart/form-data" action="/product/{{$product->id}}">
             <label for="">
                 商品狀態
                 <select name="status" id="">
@@ -27,7 +27,12 @@
             <label for="">
                 商品照片:
                 <input type="file" name="photo" placeholder="商品圖片">
-                <img src="{{ $product->photo ? $product->photo : '../img/product.jpg' }}" alt="" style="width:50px;">
+                @if(!empty($product->photo))
+                <img src="{{ $product->photo }}" alt="" style="width:50px;">
+                @else
+                <img src="/img/product.jpg" alt="" style="width:50px;">
+                @endif
+                
             </label>
             <label for="">
                 商品介紹:
