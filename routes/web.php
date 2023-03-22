@@ -27,7 +27,7 @@ Route::group(['middleware'=>'auth:api'],function(){
     Route::post('/user', [AuthController::class, 'user']);
 });
 
-//Route::group(['middleware'=>'user.auth.admin'],function(){
+Route::group(['middleware'=>'user.auth.admin'],function(){
     Route::get('/cart',[CartController::class,'index']);
     Route::post('/cart',[CartController::class,'store']);
     Route::put('/cart',[CartController::class,'update']);
@@ -42,4 +42,4 @@ Route::group(['middleware'=>'auth:api'],function(){
             Route::delete('/delete',[ProductController::class,'productDel']);
         });
     });
-//});
+});
