@@ -79,7 +79,7 @@ class ProductController extends Controller
 
         if (isset($input['photo'])) {
             $d=$product->photo;
-            if(is_null($d)){
+            if(!is_null($d) && file_exists($d)){
                 unlink($d);
             }
             $photo = $input['photo'];
@@ -97,6 +97,13 @@ class ProductController extends Controller
         
     }
     public function productDel(Request $request,$product_id){
-        
+        $product = product::FindorFail($product_id);
+        $d=$product->photo;
+            if(!is_null($d) && file_exists($d)){
+                unlink($d);
+            }
+        $product->delete();
+        return response('刪除成功');
+
     }
 }

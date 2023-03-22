@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,6 +28,11 @@ Route::group(['middleware'=>'auth:api'],function(){
 });
 
 //Route::group(['middleware'=>'user.auth.admin'],function(){
+    Route::get('/cart',[CartController::class,'index']);
+    Route::post('/cart',[CartController::class,'store']);
+    Route::put('/cart',[CartController::class,'update']);
+    Route::delete('/cart',[CartController::class,'destroy']);
+    //Route::resource('/cartitem',[CartController::class]);
     Route::group(['prefix'=>'product'],function(){
         Route::get('/',[ProductController::class,'listPage']);
         Route::post('/create',[ProductController::class,'productCreate']);
